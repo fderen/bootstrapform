@@ -34,6 +34,7 @@
       "react/forbid-prop-types": 0,
       "react-hooks/rules-of-hooks": "error",
       "react/no-unused-state": 1,
+      "no-unused-vars": 1,
       "import/no-extraneous-dependencies": 0,
       "linebreak-style": 0,
       "no-console": 1,
