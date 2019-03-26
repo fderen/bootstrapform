@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Form,
   FormGroup,
@@ -10,14 +11,11 @@ import {
 } from 'react-bootstrap';
 import OrderForm from '../OrderForm';
 
-import response from '../../static/response_mock.json';
-
 class OrderFormContainer extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      items: [],
       selectedItemIndex: undefined,
       margin: true,
       pair: null,
@@ -32,13 +30,8 @@ class OrderFormContainer extends Component {
     };
   }
 
-  componentDidMount() {
-    // TODO: fetch from API
-    this.setState({ items: response });
-  }
-
   handleSelect = (e) => {
-    const { items } = this.state;
+    const { items } = this.props;
     const selectedItemIndex = e.target.value;
     this.setState({
       selectedItemIndex,
@@ -59,9 +52,23 @@ class OrderFormContainer extends Component {
   }
 
   handleSubmit = (e) => {
+    const {
+      pair,
+      side,
+      orderType,
+      limit,
+      quantity,
+    } = this.state;
+    const { onSubmit } = this.props;
     e.preventDefault();
     if (this.validate()) {
-      console.log('yep');
+      onSubmit({
+        pair,
+        side,
+        orderType,
+        limit,
+        quantity,
+      });
     }
   }
 
@@ -104,6 +111,8 @@ class OrderFormContainer extends Component {
       nErrors.limit = `Minimal allowed limit is: ${minLimit}`;
       isCorrect = false;
     } else if (limit
+              && orderType
+              && orderType === 'limit'
               && quantity
               && parseFloat(limit) > parseFloat(quantity)) {
       nErrors.limit = 'Limit cannot extend quantity';
@@ -137,8 +146,8 @@ class OrderFormContainer extends Component {
   }
 
   render() {
+    const { items } = this.props;
     const {
-      items,
       selectedItemIndex,
       margin,
       limit,
@@ -191,5 +200,17 @@ class OrderFormContainer extends Component {
     );
   }
 }
+
+OrderFormContainer.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape({
+    pair: PropTypes.string,
+    initial_margin: PropTypes.string,
+    minimum_margin: PropTypes.string,
+    maximum_order_size: PropTypes.string,
+    minimum_order_size: PropTypes.string,
+    margin: PropTypes.bool,
+  })).isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default OrderFormContainer;
