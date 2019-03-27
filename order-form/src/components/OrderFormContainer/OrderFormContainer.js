@@ -159,7 +159,7 @@ class OrderFormContainer extends Component {
       errors,
     } = this.state;
     return (
-      <div>
+      <div className="order-form-wrapper">
         <Form>
           <FormGroup as={Row}>
             <FormLabel column>Pair</FormLabel>
@@ -183,7 +183,7 @@ class OrderFormContainer extends Component {
                   ))
                 }
               </FormControl>
-              { <span>{errors.pair}</span> }
+              { <span className="order-form-invalid--text">{errors.pair}</span> }
             </Col>
           </FormGroup>
           <OrderForm

@@ -30,7 +30,7 @@ const columns = [{
 
 const OrderList = ({ orders }) => {
   return (
-    <div>
+    <div className="order-list-wrapper">
       <BootstrapTable
         keyField="id"
         data={orders}

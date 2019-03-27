@@ -1,0 +1,11 @@
+.order-wrapper {
+  min-height: 100%;
+  display: inline-block;
+  flex-direction: row;
+  align-items: center;
+}
+
+.order-form-invalid--text {
+  font-style: italic;
+  color: red;
+}

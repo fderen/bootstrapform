@@ -3,6 +3,8 @@ import ls from 'local-storage';
 import OrderFormContainer from '../../components/OrderFormContainer';
 import OrderList from '../../components/OrderList';
 
+import './Order.css';
+
 class Order extends Component {
   constructor(props) {
     super(props);
@@ -20,11 +22,9 @@ class Order extends Component {
     fetch('http://localhost:1337/symbols_details', {
       method: 'GET',
     }).then(resp => resp.json())
-      .then(items => this.setState({
-        items,
-        orders: ls.get('orders') || [],
-      }))
+      .then(items => this.setState({ items }))
       .catch(error => console.log(error));
+    this.setState({ orders: ls.get('orders') || [] });
   }
 
   /**
@@ -50,7 +50,7 @@ class Order extends Component {
       orders,
     } = this.state;
     return (
-      <div>
+      <div className="order-wrapper">
         <OrderFormContainer
           items={items}
           onSubmit={order => this.addOrder(order)}

@@ -9,6 +9,8 @@ import {
   FormCheck,
 } from 'react-bootstrap';
 
+import './OrderForm.css';
+
 const OrderForm = (props) => {
   const {
     limit,
@@ -40,7 +42,8 @@ const OrderForm = (props) => {
             isInvalid={errors.side}
             onChange={handleChange}
           />
-          <span>{errors.side}</span>
+          <br />
+          <span className="order-form-invalid--text">{errors.side}</span>
         </Col>
       </FormGroup>
       <FormGroup as={Row}>
@@ -65,7 +68,8 @@ const OrderForm = (props) => {
             isInvalid={errors.orderType}
             onChange={handleChange}
           />
-          <span>{errors.orderType}</span>
+          <br />
+          <span className="order-form-invalid--text">{errors.orderType}</span>
         </Col>
       </FormGroup>
       <FormGroup as={Row}>
@@ -81,7 +85,7 @@ const OrderForm = (props) => {
             value={limit}
             onChange={handleChange}
           />
-          { <span>{errors.limit}</span> }
+          { <span className="order-form-invalid--text">{errors.limit}</span> }
         </Col>
       </FormGroup>
       <FormGroup as={Row}>
@@ -96,7 +100,7 @@ const OrderForm = (props) => {
             value={quantity}
             onChange={handleChange}
           />
-          { <span>{errors.quantity}</span> }
+          { <span className="order-form-invalid--text">{errors.quantity}</span> }
         </Col>
       </FormGroup>
     </div>

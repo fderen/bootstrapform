@@ -1,0 +1,11 @@
+.order-form-wrapper {
+  min-width: 60%;
+  padding: 1%;
+  display: inline-block;
+  text-align: center;
+}
+
+.form-label.col-form-label.col {
+  text-align: right;
+  max-width: 30%;
+}
