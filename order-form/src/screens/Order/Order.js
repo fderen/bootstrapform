@@ -3,8 +3,6 @@ import ls from 'local-storage';
 import OrderFormContainer from '../../components/OrderFormContainer';
 import OrderList from '../../components/OrderList';
 
-import response from '../../static/response_mock.json';
-
 class Order extends Component {
   constructor(props) {
     super(props);
@@ -14,14 +12,25 @@ class Order extends Component {
     };
   }
 
+  /**
+   * Fetches orders from proxy server
+   * and gets orders from local storage.
+   */
   componentDidMount() {
-    // TODO: fetch from api
-    this.setState({
-      items: response,
-      orders: ls.get('orders') || [],
-    });
+    fetch('http://localhost:1337/symbols_details', {
+      method: 'GET',
+    }).then(resp => resp.json())
+      .then(items => this.setState({
+        items,
+        orders: ls.get('orders') || [],
+      }))
+      .catch(error => console.log(error));
   }
 
+  /**
+   * Adds valiated order at beggining of list
+   * and saves orders to local storage.
+   */
   addOrder = (order) => {
     const {
       orders,
@@ -32,6 +41,7 @@ class Order extends Component {
     nOrder.id = orders.length;
     nOrders.unshift(nOrder);
     this.setState({ orders: nOrders });
+    ls.set('orders', nOrders);
   };
 
   render() {

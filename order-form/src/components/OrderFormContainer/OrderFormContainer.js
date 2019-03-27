@@ -30,6 +30,10 @@ class OrderFormContainer extends Component {
     };
   }
 
+  /**
+   * Sets required values to state,
+   * according to selected pair.
+   */
   handleSelect = (e) => {
     const { items } = this.props;
     const selectedItemIndex = e.target.value;
